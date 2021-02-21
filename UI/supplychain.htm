@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Global Supply Chain</title>
+	<link rel="stylesheet" type="text/css" href="sc.css">
+</head>
+<body>
+<h1> Global Supply Chain</h1>
+
+<div class="container">
+	<button class="button1"><span><a href="#holders">Add holders</a></span></button><br><br><br>
+
+	 <button class="button1"><span><a href="#destination">Update Location</a></span></button><br><br><br>
+
+	 <button class="button1"><span><a href="#status">check Status</a></span></button>
+</div><br><br><br><br><br><br><br><br><br><br>
+
+				<section id="holders">
+					 <div>
+					 	  <input  id="i1" type="text" name="" placeholder="Enter address"><br><br>
+					 	  <button  id="b1" class="b2">Add</button><br><br><br>
+					 </div>
+				</section>
+				<section id="destination">
+					 <div>
+					 	<input id="i2" type="text" name="" placeholder="Item"><br><br>
+					 	<input id="i3" type="text" name="" placeholder="adr"><br><br>
+					 	<input id="i4" type="text" name="" placeholder="Location"><br><br>
+					 	  <button id="b2" class="b2">Update</button><br><br><br>
+					 </div>
+				</section>
+				<section id="status">
+					 <div>
+					 	  <input id="i5" type="text" name="" placeholder="item"><br><br>
+					 	  <button id="b3" class="b2">check</button>
+					 </div>
+				</section>
+
+<script src="https://unpkg.com/web3@latest/dist/web3.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"  crossorigin="anonymous"></script>
+<script type="text/javascript">
+	 window.addEventListener('load', async () => {
+        if (window.ethereum) {
+           window.web3 = new Web3(window.ethereum);
+            try {
+        // Request account access if needed
+                  await window.ethereum.enable();
+           // Acccounts now exposed
+          } catch (error) {
+        // User denied account access...
+          console.log(error);
+          }
+         }
+             // Legacy dapp browsers...
+        else if (window.web3) {
+               window.web3 = new Web3(web3.currentProvider);
+                    // Acccounts always exposed
+
+                   }
+               // Non-dapp browsers...
+               else {
+              console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+               }
+
+
+             const abi = [
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_vendor",
+				"type": "address"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "arrivT",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "itemid",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "enum Supplychain.transition_state",
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"name": "item_received",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "shipT",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "itemId",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "to_location",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "enum Supplychain.transition_state",
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"name": "item_shipped",
+		"type": "event"
+	},
+	{
+		"inputs": [],
+		"name": "Owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "item",
+				"type": "string"
+			}
+		],
+		"name": "Received",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "holder",
+				"type": "address"
+			}
+		],
+		"name": "add_holder",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"name": "current_state",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "holder",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "next_holder",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "itemId",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "arriT",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "shipT",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "location",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "item",
+				"type": "string"
+			}
+		],
+		"name": "get_item_history",
+		"outputs": [
+			{
+				"internalType": "address[]",
+				"name": "",
+				"type": "address[]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			},
+			{
+				"internalType": "string[]",
+				"name": "",
+				"type": "string[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "item",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "next_holder",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "location",
+				"type": "string"
+			}
+		],
+		"name": "ship_to_Next",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "vendor",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+] ;
+
+       const Caddr = "0xBA5c9EFA5fC6bF8CF7C7932F4Cb4B586A174297C";
+       const Contract = new web3.eth.Contract(abi, Caddr);
+       const account =  await web3.eth.getAccounts()
+
+       $("#b1").click( async function(){
+      
+           const holder = document.getElementById("i1").value;
+           const add_holder =  await Contract.methods.add_holder(holder).send({from : account[0]})
+
+            alert("successfully added");
+            
+            })
+
+        $("#b2").click( async function(){
+
+        	const item = document.getElementById("i2").value;
+        	const holder = document.getElementById("i3").value;
+        	const destination = document.getElementById("i4").value;
+
+        	 const update_location = await Contract.methods.ship_to_Next(item, holder, destination).send({from : account                                                                                           [0]})
+      
+                 alert("updated");
+            
+            })
+
+
+         $("#b3").click( async function(){
+      
+				const item = document.getElementById("i5").value;           
+				const status =  await Contract.methods.current_state(item).call();
+				console.log(status);
+
+
+                alert("current state " + ": " + status[5]);
+            
+            })
+
+
+
+
+
+
+       })
+	
+
+</script>
+
+</body>
+</html>
