@@ -17,7 +17,7 @@
 ## when product reaches  its destination, vendor want to sell the product,  so vendor will go to market and list his product on Market site
 ![market](https://i.postimg.cc/xTN2kN59/Screenshot-2021-02-21-Binance-Hackathon.png)
 
-## customer who will buy can check the history of the product
+## customer who will buy this produc,  can check the whole history 
 ![alt](https://i.postimg.cc/R0fM8sq6/Screenshot-from-2021-02-22-05-50-18.png)
 
 ## Source will tell the complete details about the product , who were holders, timestamp, location etc
