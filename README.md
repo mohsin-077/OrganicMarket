@@ -1,6 +1,6 @@
 # OrganicMarket
 
-## In organic market each item are mapped with its supply chain , so that if any contamination occur we are able to trace back its origin
+## In organic market each item are mapped with its supply chain , so that if any contamination occur we are able to trace back its Origin
 ## It provide the customer a reliability that , they are receiving a authentic product
 
 ![Alt text](https://i.postimg.cc/G23R9M7f/Screenshot-2021-02-21-Global-Supply-Chain.png)
