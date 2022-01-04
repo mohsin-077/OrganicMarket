@@ -1,6 +1,6 @@
 pragma solidity ^0.6.0;
 pragma experimental ABIEncoderV2;
-import "supplychain.sol";
+import "/supplychain.sol";
 
 
 contract SimpleMarketplace{
