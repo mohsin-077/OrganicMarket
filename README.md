@@ -26,9 +26,3 @@
 ## checkout
 ![alt](https://i.postimg.cc/3wMhgX9K/Screenshot-from-2021-02-22-05-51-02.png)
 
-## link https://www.youtube.com/watch?v=dviDjh5kEYI&feature=youtu.be
-
-
-### Market_Contract address https://testnet.bscscan.com/address/0x61C4Bf1BEC0B9EaE72657Fb6ee6d26dB33eCC539
-### Supplychai_contract    https://testnet.bscscan.com/address/0x8cE23f67a0037806b33D64650ffa71F8ba9260D3
-
